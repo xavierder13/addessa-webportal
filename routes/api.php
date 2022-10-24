@@ -324,8 +324,8 @@ Route::group(['prefix' => 'employee_premiums', 'middleware' => ['auth:api', 'emp
         'as' => 'employee.premiums.update',
     ]);
 
-    Route::post('/import_loans/{id}', [
-        'uses' => 'API\EmployeePremiumsController@import_loans',
+    Route::post('/import_premiums/{id}', [
+        'uses' => 'API\EmployeePremiumsController@import_premiums',
         'as' => 'employee.premiums.import'
     ]);
 
@@ -585,8 +585,22 @@ Route::group(['prefix' => 'tactical_requisition', 'middleware' => ['auth:api', '
         'uses' => 'API\TacticalRequisitionController@delete',
         'as' => 'tactical_requisition.delete',
     ]);
+    Route::post('/add_file/{id}', [
+        'uses' => 'API\TacticalRequisitionController@add_file',
+        'as' => 'tactical_requisition.add_file',
+    ]);
+    Route::post('/delete_file', [
+        'uses' => 'API\TacticalRequisitionController@delete_file',
+        'as' => 'tactical_requisition.delete_file',
+    ]);
 
 });
+
+// Tactical Requisition File Download Route
+Route::get('/tactical_requisition/attachment/download', [
+    'uses' => 'API\TacticalRequisitionController@download',
+    'as' => 'tactical_requisition.file.download',
+])->middleware(['tactical_requisition.maintenance']);
 
 
 // Marketing Event Routes
